@@ -2,26 +2,42 @@
 
 A Claude Code plugin that lets you send crypto to contacts by name. Say "send $2 to shreyaas" instead of copy-pasting wallet addresses.
 
-## Install
-
-In Claude Code, add the marketplace and install:
-
-```
-/plugin marketplace add <your-github-username>/address-book
-/plugin install address-book@address-book
-```
-
-Or for local development:
-
-```bash
-claude --plugin-dir /path/to/address-book
-```
-
 ## Prerequisites
 
 - [Claude Code](https://claude.ai/code) CLI
 - [Tempo](https://tempo.xyz) CLI installed and logged in (`tempo wallet login`)
 - `jq` installed (`brew install jq` on macOS)
+
+## Setup
+
+```bash
+git clone https://github.com/MakeitRane/MPP-Marketplace.git
+cd MPP-Marketplace
+chmod +x setup.sh scripts/contacts.sh
+./setup.sh
+```
+
+The setup script will:
+- Copy `data/contacts.example.json` → `data/contacts.json` (your local address book, gitignored)
+- Verify `jq` and Tempo CLI are installed
+- Check your Tempo wallet login status
+
+## Install
+
+**Option A — Local plugin (development):**
+
+```bash
+claude --plugin-dir /path/to/MPP-Marketplace
+```
+
+**Option B — Via marketplace:**
+
+In Claude Code:
+
+```
+/plugin marketplace add MakeitRane/MPP-Marketplace
+/plugin install address-book@address-book
+```
 
 ## Usage
 
@@ -67,7 +83,8 @@ When Claude resolves a new wallet address (via ENS, cb.id, or you paste one), it
 
 ## How it works
 
-- **contacts.json** — Source of truth, stored in the plugin's `data/` directory
+- **contacts.json** — Source of truth, stored in the plugin's `data/` directory (gitignored, stays local)
+- **contacts.example.json** — Template with dummy data for first-time setup
 - **Claude memory** — Contacts are synced to Claude's memory system so they're available in every conversation, even without the skill being invoked
 - **Tempo** — Transfers execute via `tempo wallet transfer` on the Tempo network
 
