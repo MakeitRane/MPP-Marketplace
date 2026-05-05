@@ -1,0 +1,15 @@
+{
+  "name": "address-book",
+  "owner": {
+    "name": "Anish Rane"
+  },
+  "description": "Wallet address book for Claude Code — send crypto to contacts by name",
+  "plugins": [
+    {
+      "name": "address-book",
+      "source": "./",
+      "description": "Send crypto to contacts by name via Tempo. Manage a wallet address book that syncs with Claude memory.",
+      "version": "0.1.0"
+    }
+  ]
+}
